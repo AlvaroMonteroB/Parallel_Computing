@@ -13,7 +13,7 @@ typedef struct{
 
 int write_matrix(int matrix[3][9]);
 FILE *read_matrix(char * stream);
-
+void write_to_file(FILE *f,FILE *result,int i);
 
 
 int main(){
@@ -24,43 +24,122 @@ int main(){
     
     FILE *result=fopen("Result.txt","w");
     pid_t process[9];
-    for(int i=0;i<9;i++){
-        process[i]=fork();
-        if (process[i]>=0){
-            FILE *f=read_matrix("matrix.txt");
 
-            printf("%i aaa   ",process[i]);
-            printf("Hola desde el proceso %d\n",getppid());
-            int value;
-            int vector[3];
-            for (int k = 0; k < 3; k++) {//rows
-                for (int j = 0; j < 9; j++) {//cols
-                    fscanf(f, "%i", &value);
-                        if (j == i) {
-                            vector[k]=value;
-                                    }
-                    }
-                }
-            int result_value=0;
-            for (int i=0;i<3;i++){
-                result_value+=vector[i];
+        process[0]=fork();
+        if(process[0]==-1){          
+            perror("\nError al crear el proceso\n");
+            exit(-1);
             }
-
-            fprintf(result,"%i",result_value);
-            fflush(result);
-            fclose(f);
-            sleep(.001);
+        if (process[0]==0){
+            FILE *f=read_matrix("matrix.txt");
+            write_to_file(f,result,0);
             exit(0);
-        }else{
-            sleep(.001);
         }
-    }
+
+        process[1]=fork();
+        if(process[0]==-1){          
+            perror("\nError al crear el proceso\n");
+            exit(-1);
+            }
+        if (process[1]==0){
+            FILE *f=read_matrix("matrix.txt");
+            write_to_file(f,result,1);
+            exit(0);
+        }
+
+        process[2]=fork();
+        if(process[0]==-1){          
+            perror("\nError al crear el proceso\n");
+            exit(-1);
+            }
+        if (process[2]==0){
+            FILE *f=read_matrix("matrix.txt");
+            write_to_file(f,result,2);
+            exit(0);
+        }
+
+        process[3]=fork();
+        if(process[2]==-1){          
+            perror("\nError al crear el proceso\n");
+            exit(-1);
+            }
+        if (process[3]==0){
+            FILE *f=read_matrix("matrix.txt");
+            write_to_file(f,result,3);
+            exit(0);
+        }
+
+        process[4]=fork();
+        if(process[0]==-1){          
+            perror("\nError al crear el proceso\n");
+            exit(-1);
+            }
+        if (process[4]==0){
+            FILE *f=read_matrix("matrix.txt");
+            write_to_file(f,result,4);
+            exit(0);
+        }
+
+        process[5]=fork();
+        if(process[0]==-1){          
+            perror("\nError al crear el proceso\n");
+            exit(-1);
+            }
+        if (process[5]==0){
+            FILE *f=read_matrix("matrix.txt");
+            write_to_file(f,result,5);
+            exit(0);
+        }
+
+
+        process[6]=fork();
+        if(process[0]==-1){          
+            perror("\nError al crear el proceso\n");
+            exit(-1);
+            }
+        if (process[6]==0){
+            FILE *f=read_matrix("matrix.txt");
+            write_to_file(f,result,6);
+            exit(0);
+        }
+
+        process[7]=fork();
+        if(process[0]==-1){          
+            perror("\nError al crear el proceso\n");
+            exit(-1);
+            }
+        if (process[7]==0){
+            FILE *f=read_matrix("matrix.txt");
+            write_to_file(f,result,7);
+            exit(0);
+        }
+
+
+        process[8]=fork();
+        if(process[5]==-1){          
+            perror("\nError al crear el proceso\n");
+            exit(-1);
+            }
+        if (process[8]==0){
+            FILE *f=read_matrix("matrix.txt");
+            write_to_file(f,result,8);
+            exit(0);
+        }
+
+    
     
     fclose(result);
     
 
     return 0;
 }
+
+
+
+
+
+
+
 
 
 
@@ -93,4 +172,31 @@ FILE *read_matrix(char *stream){
         exit(-1);
     }
     return f;
+}
+
+void write_to_file(FILE *f,FILE *result,int i){
+    
+
+            //printf("%i aaa   ",process[i]);
+            printf("Hola desde el proceso %d\n",getppid());
+            int value;
+            int vector[3];
+            for (int k = 0; k < 3; k++) {//rows
+                for (int j = 0; j < 9; j++) {//cols
+                    fscanf(f, "%i", &value);
+                        if (j == i) {
+                            vector[k]=value;
+                                    }
+                    }
+                }
+            int result_value=0;
+            for (int i=0;i<3;i++){
+                result_value+=vector[i];
+            }
+
+            fprintf(result,"%i ",result_value);
+            fflush(result);
+            fclose(f);
+            sleep(.001);
+            
 }
