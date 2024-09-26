@@ -184,7 +184,7 @@ void write_to_file(FILE *f,FILE *result,int i){
     
 
             //printf("%i aaa   ",process[i]);
-            printf("Hola desde el proceso %d\n",getppid());
+            //printf("Hola desde el proceso %d\n",getppid());
             int value;
             int vector[3];
             for (int k = 0; k < 3; k++) {//rows
