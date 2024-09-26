@@ -10,13 +10,6 @@
 #include<wait.h>
 #include<sys/types.h>
 
-typedef struct{
-    int rows;
-    int cols;
-    int *data;
-}Matrix_int;
-
-
 int write_matrix(int matrix[3][9]);
 FILE *read_matrix(char * stream);
 void write_to_file(FILE *f,FILE *result,int i);
@@ -195,9 +188,9 @@ void write_to_file(FILE *f,FILE *result,int i){
                                     }
                     }
                 }
-            int result_value=0;
+            int result_value=1;
             for (int i=0;i<3;i++){
-                result_value+=vector[i];
+                result_value*=vector[i];
             }
 
             fprintf(result,"%i ",result_value);
