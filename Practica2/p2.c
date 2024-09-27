@@ -30,7 +30,7 @@ int main(){
             exit(-1);
             }
         if (process0==0){
-        printf("Hola desde el proceso %d\n",getppid());
+        //printf("Hola desde el proceso %d\n",getppid());
             FILE *f=read_matrix("matrix.txt");
             write_to_file(f,result,0);
             exit(0);
@@ -42,7 +42,7 @@ int main(){
             exit(-1);
             }
         if (process1==0){
-        printf("Hola desde el proceso %d\n",getppid());
+        //printf("Hola desde el proceso %d\n",getppid());
             FILE *f=read_matrix("matrix.txt");
             write_to_file(f,result,1);
             exit(0);
@@ -54,7 +54,7 @@ int main(){
             exit(-1);
             }
         if (process2==0){
-        printf("Hola desde el proceso %d\n",getppid());
+        //printf("Hola desde el proceso %d\n",getppid());
             FILE *f=read_matrix("matrix.txt");
             write_to_file(f,result,2);
             exit(0);
@@ -66,7 +66,7 @@ int main(){
             exit(-1);
             }
         if (process3==0){
-        printf("Hola desde el proceso %d\n",getppid());
+        //printf("Hola desde el proceso %d\n",getppid());
             FILE *f=read_matrix("matrix.txt");
             write_to_file(f,result,3);
             exit(0);
@@ -78,7 +78,7 @@ int main(){
             exit(-1);
             }
         if (process4==0){
-        printf("Hola desde el proceso %d\n",getppid());
+        //printf("Hola desde el proceso %d\n",getppid());
             FILE *f=read_matrix("matrix.txt");
             write_to_file(f,result,4);
             exit(0);
@@ -90,7 +90,7 @@ int main(){
             exit(-1);
             }
         if (process5==0){
-        printf("Hola desde el proceso %d\n",getppid());
+        //printf("Hola desde el proceso %d\n",getppid());
             FILE *f=read_matrix("matrix.txt");
             write_to_file(f,result,5);
             exit(0);
@@ -103,7 +103,7 @@ int main(){
             exit(-1);
             }
         if (process6==0){
-        printf("Hola desde el proceso %d\n",getppid());
+        //printf("Hola desde el proceso %d\n",getppid());
             FILE *f=read_matrix("matrix.txt");
             write_to_file(f,result,6);
             exit(0);
@@ -115,7 +115,7 @@ int main(){
             exit(-1);
             }
         if (process7==0){
-        printf("Hola desde el proceso %d\n",getppid());
+        //printf("Hola desde el proceso %d\n",getppid());
             FILE *f=read_matrix("matrix.txt");
             write_to_file(f,result,7);
             exit(0);
@@ -128,7 +128,7 @@ int main(){
             exit(-1);
             }
         if (process8==0){
-        printf("Hola desde el proceso %d\n",getppid());
+        //printf("Hola desde el proceso %d\n",getppid());
             FILE *f=read_matrix("matrix.txt");
             write_to_file(f,result,8);
             exit(0);
