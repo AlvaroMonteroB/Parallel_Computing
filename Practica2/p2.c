@@ -23,116 +23,22 @@ int main(){
     
     FILE *result=fopen("Result.txt","w");
 
+    pid_t process[9];
+    for(int i=0;i<9;i++){
 
-       pid_t process0=fork();
-        if(process0==-1){          
+        if((process[i]=fork())<0){          
             perror("\nError al crear el proceso\n");
             exit(-1);
             }
-        if (process0==0){
+        
+        else if(process[i]==0){
         //printf("Hola desde el proceso %d\n",getppid());
             FILE *f=read_matrix("matrix.txt");
-            write_to_file(f,result,0);
+            write_to_file(f,result,i);
             exit(0);
         }
-
-        pid_t process1=fork();
-        if(process1==-1){          
-            perror("\nError al crear el proceso\n");
-            exit(-1);
-            }
-        if (process1==0){
-        //printf("Hola desde el proceso %d\n",getppid());
-            FILE *f=read_matrix("matrix.txt");
-            write_to_file(f,result,1);
-            exit(0);
-        }
-
-        pid_t process2=fork();
-        if(process2==-1){          
-            perror("\nError al crear el proceso\n");
-            exit(-1);
-            }
-        if (process2==0){
-        //printf("Hola desde el proceso %d\n",getppid());
-            FILE *f=read_matrix("matrix.txt");
-            write_to_file(f,result,2);
-            exit(0);
-        }
-
-        pid_t process3=fork();
-        if(process3==-1){          
-            perror("\nError al crear el proceso\n");
-            exit(-1);
-            }
-        if (process3==0){
-        //printf("Hola desde el proceso %d\n",getppid());
-            FILE *f=read_matrix("matrix.txt");
-            write_to_file(f,result,3);
-            exit(0);
-        }
-
-        pid_t process4=fork();
-        if(process4==-1){          
-            perror("\nError al crear el proceso\n");
-            exit(-1);
-            }
-        if (process4==0){
-        //printf("Hola desde el proceso %d\n",getppid());
-            FILE *f=read_matrix("matrix.txt");
-            write_to_file(f,result,4);
-            exit(0);
-        }
-
-        pid_t process5=fork();
-        if(process5==-1){          
-            perror("\nError al crear el proceso\n");
-            exit(-1);
-            }
-        if (process5==0){
-        //printf("Hola desde el proceso %d\n",getppid());
-            FILE *f=read_matrix("matrix.txt");
-            write_to_file(f,result,5);
-            exit(0);
-        }
-
-
-        pid_t process6=fork();
-        if(process6==-1){          
-            perror("\nError al crear el proceso\n");
-            exit(-1);
-            }
-        if (process6==0){
-        //printf("Hola desde el proceso %d\n",getppid());
-            FILE *f=read_matrix("matrix.txt");
-            write_to_file(f,result,6);
-            exit(0);
-        }
-
-        pid_t process7=fork();
-        if(process7==-1){          
-            perror("\nError al crear el proceso\n");
-            exit(-1);
-            }
-        if (process7==0){
-        //printf("Hola desde el proceso %d\n",getppid());
-            FILE *f=read_matrix("matrix.txt");
-            write_to_file(f,result,7);
-            exit(0);
-        }
-
-
-        pid_t process8=fork();
-        if(process8==-1){          
-            perror("\nError al crear el proceso\n");
-            exit(-1);
-            }
-        if (process8==0){
-        //printf("Hola desde el proceso %d\n",getppid());
-            FILE *f=read_matrix("matrix.txt");
-            write_to_file(f,result,8);
-            exit(0);
-        }
+        
+    }
 
     
     
