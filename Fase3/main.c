@@ -54,7 +54,7 @@ int main(){
 
     for (int i = 0; i < tam; i++)
     {   
-        reconstructed_funct[i]=a0;
+        reconstructed_funct[i]=a0/2-2;
     }
     
     //Semaforo de la memoria compartida y de procesos
@@ -103,7 +103,7 @@ int main(){
         }
 
     
-    write_buffer(x_range,reconstructed_funct,"result.txt",tam);
+    write_buffer(x_range,reconstructed_funct,"result.csv",tam);
     shmdt(reconstructed_funct);
     shmctl(segment_id, IPC_RMID, NULL);
     
@@ -121,7 +121,7 @@ int main(){
 //Términos de la serie
 double calc_term(int n, double x){
     double an = (-20 * cos(n * PI))/(3 * pow(n,2));
-    return an *cos((2*n*x));
+    return an * cos((n*x));
 }
 
 // Arreglo uniformemente espaciado para los datos en x
@@ -172,7 +172,7 @@ void desbloquear_semaforo(int sem_id) {
 
 void write_buffer(double *space, double *vals,char * file, int space_size){
     FILE *f=fopen(file,"w");
-    if(f=NULL){
+    if(f==NULL){
         perror("File error");
         exit(-1);
     }
