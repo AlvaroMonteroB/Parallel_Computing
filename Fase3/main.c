@@ -120,8 +120,7 @@ int main(){
 
 //Términos de la serie
 double calc_term(int n, double x){
-    double an = (-20 * cos(n * PI))/(3 * pow(n,2));
-    return an * cos((n*x));
+    return (-20 * cos(n * PI))/(3 * pow(n,2)) * cos((n*x));
 }
 
 // Arreglo uniformemente espaciado para los datos en x
