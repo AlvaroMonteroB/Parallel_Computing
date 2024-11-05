@@ -1,0 +1,3 @@
+/home/alejandro_villeda/Escritorio/C++/Computo paralelo/Reportes/Fase 5/cmake-build-debug/CMakeFiles/Fase_5.dir
+/home/alejandro_villeda/Escritorio/C++/Computo paralelo/Reportes/Fase 5/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/alejandro_villeda/Escritorio/C++/Computo paralelo/Reportes/Fase 5/cmake-build-debug/CMakeFiles/rebuild_cache.dir
