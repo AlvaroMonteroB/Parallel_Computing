@@ -37,7 +37,7 @@ int main(){
     dim3 threadsPerBlock( n_max);
     dim3 numBlocks(tam);
 
-    calc_term<<<numBlocks,threadsPerBlock>>>(lins_c,mat_rec,tam);//Reconstruccion de la funcion
+    calc_term<<<numBlocks,threadsPerBlock>>>(lins_c,mat_rec,n_max);//Reconstruccion de la funcion
     dim3 threadsPerBlock2(tam);//longitud del linspace
     dim3 block1(1);
     def_funct<<<block1,threadsPerBlock2>>>(mat_rec,reconstructed_gpu,n_max);//FUncion resultante
