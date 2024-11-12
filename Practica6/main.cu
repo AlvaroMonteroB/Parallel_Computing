@@ -27,9 +27,10 @@ int main(){
     most_mat(mat1);
     printf("Matriz 2\n");
     most_mat(mat2);
+
+
     float *devA, *devB, *devC;
-    dim3 threadsPerBlock(10, 10);
-    dim3 numBlocks(1, 1);
+    
     cudaMalloc((void**)&devA,Tam*Tam*sizeof(float));
     cudaMalloc((void**)&devB,Tam*Tam*sizeof(float));
     cudaMalloc((void**)&devC,Tam*Tam*sizeof(float));
@@ -37,6 +38,9 @@ int main(){
     cudaMemcpy(devA,mat1,Tam*Tam*sizeof(int),cudaMemcpyHostToDevice);
     cudaMemcpy(devB,mat2,Tam*Tam*sizeof(int),cudaMemcpyHostToDevice);
     cudaMemcpy(devC,mat3,Tam*Tam*sizeof(int),cudaMemcpyHostToDevice);
+
+    dim3 threadsPerBlock(10, 10);
+    dim3 numBlocks(1, 1);
 
     mat_mul<<<numBlocks,threadsPerBlock>>>(devA,devB,devC,Tam);
 
