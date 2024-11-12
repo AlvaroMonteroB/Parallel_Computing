@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <cuda_runtime.h>
 #include <time.h>
-
+#include <math.h>
 #define PI 3.14159265359
 #define a0 4-((10*pow(PI,2))/9)
 
@@ -10,6 +10,10 @@ double *linspace(double ini, double fin, double step,int *size);
 void write_buffer(double *space, double *vals,char * file, int space_size);
 __global__ void calc_term(double *xrange, double*result, int tam);
 __global__ void def_funct(double *matrix, double* reconstructed_funct, int tam);
+__global__ void print_grid(double *matrix, int i, int j);
+
+
+
 int main(){
     int n_max=24;
     int tam;
@@ -30,13 +34,14 @@ int main(){
     cudaMemcpy(mat_rec,result,tam*sizeof(double),cudaMemcpyHostToDevice);//result ->mat_rec
     cudaMemcpy(reconstructed_gpu,reconstructed_funct,tam*sizeof(double),cudaMemcpyHostToDevice);// reconstructed -> result funct
 
-    dim3 threadsPerBlock(1, n_max);
-    dim3 numBlocks(tam,1);
+    dim3 threadsPerBlock( n_max);
+    dim3 numBlocks(tam);
 
     calc_term<<<numBlocks,threadsPerBlock>>>(lins_c,mat_rec,tam);//Reconstruccion de la funcion
-    dim3 threadsPerBlock2(1,tam);
-    def_funct<<<1,threadsPerBlock2>>>(mat_rec,reconstructed_gpu,n_max);//FUncion resultante
-
+    dim3 threadsPerBlock2(tam);//longitud del linspace
+    dim3 block1(1);
+    def_funct<<<block1,threadsPerBlock2>>>(mat_rec,reconstructed_gpu,n_max);//FUncion resultante
+    //print_grid<<<1,1>>>(mat_rec,tam,n_max);
 
     cudaMemcpy(reconstructed_funct,reconstructed_gpu,tam*sizeof(double),cudaMemcpyDeviceToHost);//reconstructed_gpu -> reconstructed
     for (int i = 0; i < tam; i++) {
@@ -58,23 +63,35 @@ int main(){
 __global__ void calc_term(double *xrange, double*result,int tam){
     int i = blockIdx.x ;//EL bloque nos dice la coordenada del linspace x
     //int m= blockIdx.x * blockDim.y + threadIdx.y;
-    int n = blockIdx.x * blockDim.y + threadIdx.y; //El thread nos dice el termino de la suma 
+    int n = threadIdx.x; //El thread nos dice el termino de la suma 
     n+=1;
     double x= xrange[i];
 
-    result[n*tam+i]=(-20 * cos(n * PI))/(3 * pow(n,2)) * cos((n*x)); //Genera los terminos de la serie
-    //printf("%f ",result[n*tam+i]);
+    result[threadIdx.x+tam*i]=(-20 * cos(n * PI))/(3 * pow(n,2)) * cos((n*x)); //Genera los terminos de la serie
+    //printf("%f ",result[(n-1)*tam+i]);
 
 
 }
 
+__global__ void print_grid(double *matrix, int i, int j){
+    for(int k=0; k<i; k++){
+        for(int l=0; l<j; l++){
+            printf("%f ",matrix[k*i+l]);
+        }
+        printf("\n");
+    }
+    printf("\n\n");
+}
+
+
 __global__ void def_funct(double *matrix, double* reconstructed_funct,int n_max){
-    int n = blockIdx.x* blockDim.x + threadIdx.x;
+    int n = threadIdx.x;
+    double aux=0;
     for (int i = 0; i < n_max; i++)
     {
-        reconstructed_funct[n]+=matrix[n*n_max+i];//Reconstruye la señal paralelamente a partir de los terminos de la serie
-    }
-      
+        aux+=matrix[n * n_max + i];//Reconstruye la señal paralelamente a partir de los terminos de la serie   
+        }
+      reconstructed_funct[n]+=aux;
 }
 
 
