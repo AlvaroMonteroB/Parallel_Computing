@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <cuda_runtime.h>
-#include <time.h>
 #include <math.h>
 #define PI 3.14159265359
 #define a0 4-((10*pow(PI,2))/9)
@@ -63,8 +62,7 @@ int main(){
 __global__ void calc_term(double *xrange, double*result,int tam){
     int i = blockIdx.x ;//EL bloque nos dice la coordenada del linspace x
     //int m= blockIdx.x * blockDim.y + threadIdx.y;
-    int n = threadIdx.x; //El thread nos dice el termino de la suma 
-    n+=1;
+    int n = threadIdx.x+1; //El thread nos dice el termino de la suma 
     double x= xrange[i];
 
     result[threadIdx.x+tam*i]=(-20 * cos(n * PI))/(3 * pow(n,2)) * cos((n*x)); //Genera los terminos de la serie
